@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link , BrowserRouter} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -14,6 +14,7 @@ import BoardAdmin from "./components/BoardAdmin";
 import CancelBooking from './components/CancelBooking'
 import CreateBooking from './components/CreateBooking'
 import ViewBooking from './components/ViewBooking'
+import ProtectedRoute from './components/ProtectedRoute'
 
 
 import EventBus from "./common/EventBus";
@@ -107,19 +108,25 @@ const App = () => {
       </nav>
 
       <div className="container mt-3">
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/home" element={<Home/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
-          <Route path="/profile" element={<Profile/>} />
-          <Route path="/user" element={<BoardUser/>} />
-          <Route path="/admin" element={<BoardAdmin/>} />
-          <Route path="/create-booking" element={<CreateBooking/>} />
-          <Route path="/view-booking" element={<ViewBooking/>} />
-          <Route path="/cancel-booking" element={<CancelBooking/>} />
 
+        <Routes>
+            <Route path="/" element={<Home/>} />
+            <Route path="/home" element={<Home/>} />
+            <Route path="/login" element={<Login/>} />
+            <Route path="/register" element={<Register/>} />
+            <Route path="/profile" element={<Profile/>} />
+            <Route path="/user" element={<BoardUser/>} />
+            <Route path="/admin" element={<BoardAdmin/>} />
+            <Route path="/create-booking" element={
+                <ProtectedRoute>
+                  <CreateBooking />
+                </ProtectedRoute>
+              } 
+            />
+            <Route path="/view-booking" element={<ViewBooking/>} />
+            <Route path="/cancel-booking" element={<CancelBooking/>} />
         </Routes>
+
       </div>
 
     </div>
